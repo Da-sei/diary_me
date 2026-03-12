@@ -27,4 +27,11 @@ export class DiaryManagementEntity {
       ...this,
     });
   }
+
+  // 日記の削除
+  delete(): DiaryManagementEntity {
+    return new DiaryManagementEntity({
+      ...this,
+    });
+  }
 }

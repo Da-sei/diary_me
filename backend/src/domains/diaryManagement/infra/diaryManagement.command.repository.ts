@@ -17,4 +17,12 @@ export class DiaryManagementCommandRepository implements IDiaryManagementCommand
       },
     });
   }
+
+  // 日記の削除
+  async delete(diary: DiaryManagementEntity): Promise<void> {
+    await this.prisma.diary.delete({
+      where: {
+        id: diary.id,
+      },
+    });
 }
