@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: diary_me_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    container_name: diary_me_backend
+    build: ./backend
+    environment:
+      DATABASE_URL: "postgresql://user:password@db:5432/diary_me_db?schema=public"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  frontend:
+    container_name: diary_me_frontend
+    build: ./frontend
+    ports:
+      - "3001:3001"
+
+volumes:
+  db_data:
